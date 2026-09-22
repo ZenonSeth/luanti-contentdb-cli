@@ -29,6 +29,9 @@ func (m model) updateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 			m.mods, m.modsErr = content.ScanMods(m.modsDir)
 			m.screen = screenMods
 		case 1:
+			m.games, m.gamesErr = content.ScanGames(m.gamesDir)
+			m.screen = screenGames
+		case 2:
 			return m, tea.Quit
 		}
 	}
@@ -47,7 +50,8 @@ func (m model) viewMenu() string {
 		s += fmt.Sprintf("%s %s\n", cursor, choice)
 	}
 
-	s += fmt.Sprintf("\nmods dir: %s\n", m.modsDir)
+	s += fmt.Sprintf("\nmods dir:  %s\n", m.modsDir)
+	s += fmt.Sprintf("games dir: %s\n", m.gamesDir)
 	s += "\n(up/down to move, enter to select, q to quit)\n"
 
 	return s

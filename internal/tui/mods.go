@@ -50,14 +50,14 @@ func (m model) viewMods() string {
 			cursor = ">"
 		}
 
-		flag := " "
+		tag := "   " // regular, well-formed mod: no flag needed
 		if mod.IsModpack {
-			flag = "P" // modpack, not scanned further yet
+			tag = "[P]" // modpack, not scanned further yet
 		} else if !mod.ConfOK {
-			flag = "!" // missing/malformed mod.conf, name is a folder-name guess
+			tag = "[!]" // missing/malformed mod.conf, name is a folder-name guess
 		}
 
-		s += fmt.Sprintf("%s [%s] %s\n", cursor, flag, mod.Name)
+		s += fmt.Sprintf("%s %s %s\n", cursor, tag, mod.Name)
 	}
 
 	s += "\n(P = modpack, ! = no valid mod.conf, name guessed from folder)\n"

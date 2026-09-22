@@ -6,6 +6,7 @@ import (
 	"bufio"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 )
 
@@ -15,6 +16,7 @@ type Mod struct {
 	Title           string
 	Description     string
 	Author          string
+	Release         int // from mod.conf's `release`; 0 if absent
 	Depends         []string
 	OptionalDepends []string
 
@@ -87,13 +89,14 @@ func scanModDir(dir, path string) Mod {
 	m.Title = conf["title"]
 	m.Description = conf["description"]
 	m.Author = conf["author"]
+	m.Release = parseIntField(conf, "release")
 	m.Depends = splitList(conf["depends"])
 	m.OptionalDepends = splitList(conf["optional_depends"])
 
 	return m
 }
 
-// parseConfFile parses a Luanti "Settings" style file: 
+// parseConfFile parses a Luanti "Settings" style file:
 // one `key = value` per line
 func parseConfFile(data []byte) map[string]string {
 	result := make(map[string]string)
@@ -114,6 +117,16 @@ func parseConfFile(data []byte) map[string]string {
 	}
 
 	return result
+}
+
+// parseIntField reads an integer field from a parsed conf map,
+// defaulting to 0 if the key is missing or not a valid integer.
+func parseIntField(conf map[string]string, key string) int {
+	n, err := strconv.Atoi(conf[key])
+	if err != nil {
+		return 0
+	}
+	return n
 }
 
 // splitList splits a comma-separated mod.conf list field (depends,

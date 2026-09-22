@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	tea "github.com/charmbracelet/bubbletea"
 
@@ -11,10 +12,13 @@ import (
 )
 
 func main() {
-	dir := flag.String("dir", ".", "path to the mods folder")
+	root := flag.String("dir", ".", "path to the Luanti install (contains mods/ and games/)")
 	flag.Parse()
 
-	p := tea.NewProgram(tui.New(*dir))
+	modsDir := filepath.Join(*root, "mods")
+	gamesDir := filepath.Join(*root, "games")
+
+	p := tea.NewProgram(tui.New(modsDir, gamesDir))
 	if _, err := p.Run(); err != nil {
 		fmt.Println("error running program:", err)
 		os.Exit(1)

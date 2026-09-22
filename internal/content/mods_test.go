@@ -21,7 +21,7 @@ func TestScanMods(t *testing.T) {
 
 	// well-formed mod
 	writeFile(t, filepath.Join(dir, "goodmod", "mod.conf"),
-		"name = goodmod\ntitle = Good Mod\nauthor = someone\ndepends = default, other\n")
+		"name = goodmod\ntitle = Good Mod\nauthor = someone\nrelease = 42\ndepends = default, other\n")
 
 	// mod.conf exists but has no name field
 	writeFile(t, filepath.Join(dir, "noname", "mod.conf"),
@@ -49,7 +49,7 @@ func TestScanMods(t *testing.T) {
 	}
 
 	good := byName["goodmod"]
-	if !good.ConfOK || good.Name != "goodmod" || good.Title != "Good Mod" {
+	if !good.ConfOK || good.Name != "goodmod" || good.Title != "Good Mod" || good.Release != 42 {
 		t.Errorf("goodmod: unexpected result %+v", good)
 	}
 	if len(good.Depends) != 2 || good.Depends[0] != "default" || good.Depends[1] != "other" {

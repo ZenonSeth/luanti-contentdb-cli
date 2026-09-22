@@ -2,7 +2,6 @@ package tui
 
 import (
 	"fmt"
-	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -33,13 +32,12 @@ func (m model) viewModDetail() string {
 
 	s += fmt.Sprintf("folder:      %s\n", mod.Dir)
 	s += fmt.Sprintf("path:        %s\n", mod.Path)
-	s += fmt.Sprintf("mod.conf ok: %v\n", mod.ConfOK)
 
 	if len(mod.Depends) > 0 {
-		s += fmt.Sprintf("depends:     %s\n", strings.Join(mod.Depends, ", "))
+		s += wrapLabeled("depends:     ", mod.Depends, m.width)
 	}
 	if len(mod.OptionalDepends) > 0 {
-		s += fmt.Sprintf("optional:    %s\n", strings.Join(mod.OptionalDepends, ", "))
+		s += wrapLabeled("optional:    ", mod.OptionalDepends, m.width)
 	}
 
 	s += "\n(q to go back)\n"
