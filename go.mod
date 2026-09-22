@@ -1,4 +1,4 @@
-module github.com/ZenonSeth/luanti-mod-manager-cli
+module github.com/ZenonSeth/luanti-contentdb-cli
 
 go 1.24.0
 

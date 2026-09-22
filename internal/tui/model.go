@@ -7,7 +7,7 @@ package tui
 import (
 	tea "github.com/charmbracelet/bubbletea"
 
-	"github.com/ZenonSeth/luanti-mod-manager-cli/internal/content"
+	"github.com/ZenonSeth/luanti-contentdb-cli/internal/content"
 )
 
 type screen int

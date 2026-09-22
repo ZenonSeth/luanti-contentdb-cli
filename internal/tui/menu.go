@@ -5,7 +5,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
-	"github.com/ZenonSeth/luanti-mod-manager-cli/internal/content"
+	"github.com/ZenonSeth/luanti-contentdb-cli/internal/content"
 )
 
 func (m model) updateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
@@ -40,7 +40,7 @@ func (m model) updateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) viewMenu() string {
-	s := "luanti-mod-manager-cli\n\n"
+	s := "luanti-contentdb-cli\n\n"
 
 	for i, choice := range m.choices {
 		cursor := " "
